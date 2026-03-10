@@ -4,5 +4,3 @@
 name: doco-cd-poc
 compose_files:
   - compose.yml
-build_opts:
-  no_cache: true   # Rebuild API image from scratch on every deploy

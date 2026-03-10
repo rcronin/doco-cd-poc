@@ -1,0 +1,4 @@
+# poll-config.yaml
+- url: https://github.com/rcronin/doco-cd-poc.git
+  reference: refs/tags/v1.0.1
+  interval: 60

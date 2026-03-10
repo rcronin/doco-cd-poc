@@ -14,13 +14,11 @@ services:
     environment:
       TZ: ${TZ:-UTC}
       GIT_ACCESS_TOKEN: ${GIT_ACCESS_TOKEN:-}
-      POLL_CONFIG: |
-        - url: ${POLL_REPO_URL?POLL_REPO_URL must be set - copy .env.example to .env and set your GitHub repo URL}
-          reference: ${POLL_REF:-refs/heads/main}
-          interval: ${POLL_INTERVAL:-120}
+      POLL_CONFIG_FILE: /poll-config.yaml
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - doco-cd-data:/data
+      - ./poll-config.yaml:/poll-config.yaml:ro
     healthcheck:
       test: ["CMD", "/doco-cd", "healthcheck"]
       start_period: 15s
