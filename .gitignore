@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+api/node_modules/
+
+# Build
+dist/
+api/dist/
+
+# Environment
+.env
+*.env
+!.env.example
+doco-cd-runner/.env
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*

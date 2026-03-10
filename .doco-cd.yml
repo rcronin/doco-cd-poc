@@ -1,0 +1,8 @@
+# doco-cd deployment config: deploy this repo as a Docker Swarm stack.
+# When doco-cd polls (or receives a webhook), it clones this repo and runs
+# the compose stack. Swarm mode is auto-detected when the Docker daemon is in Swarm.
+name: doco-cd-poc
+compose_files:
+  - compose.yml
+build_opts:
+  no_cache: false

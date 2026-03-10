@@ -1,0 +1,32 @@
+# Run doco-cd so it polls a remote GitHub repo and deploys the stack via Docker Swarm.
+# Ensure Docker is in Swarm mode: docker swarm init
+# Set GIT_ACCESS_TOKEN in .env or below for private repos (or leave empty for public).
+# Set POLL_REPO_URL in .env to your fork or this repo's GitHub URL.
+
+services:
+  app:
+    container_name: doco-cd
+    image: ghcr.io/kimdre/doco-cd:latest
+    restart: unless-stopped
+    ports:
+      - "9000:80"    # doco-cd HTTP (health, API); use 80 if not running Traefik on host
+      - "9120:9120"  # Prometheus metrics
+    environment:
+      TZ: ${TZ:-UTC}
+      GIT_ACCESS_TOKEN: ${GIT_ACCESS_TOKEN:-}
+      POLL_CONFIG: |
+        - url: ${POLL_REPO_URL}
+          reference: ${POLL_REF:-refs/heads/main}
+          interval: ${POLL_INTERVAL:-120}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - doco-cd-data:/data
+    healthcheck:
+      test: ["CMD", "/doco-cd", "healthcheck"]
+      start_period: 15s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  doco-cd-data:

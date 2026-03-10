@@ -1,0 +1,5 @@
+# dynamic/tls.yaml - TLS certificates for Traefik (per https://doc.traefik.io/traefik/setup/swarm/)
+tls:
+  certificates:
+    - certFile: /certs/local.crt
+      keyFile: /certs/local.key
