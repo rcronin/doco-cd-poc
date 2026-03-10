@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Param, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { RequestWithStart } from './middleware/request-timing.middleware';
 
@@ -15,5 +15,10 @@ export class AppController {
   @Get('health')
   health() {
     return { status: 'ok' };
+  }
+
+  @Get('hello')
+  hello(@Param('name') name: string) {
+    return { message: `Hello, ${name}!` };
   }
 }

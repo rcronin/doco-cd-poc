@@ -15,7 +15,7 @@ services:
       TZ: ${TZ:-UTC}
       GIT_ACCESS_TOKEN: ${GIT_ACCESS_TOKEN:-}
       POLL_CONFIG: |
-        - url: ${POLL_REPO_URL}
+        - url: ${POLL_REPO_URL?POLL_REPO_URL must be set - copy .env.example to .env and set your GitHub repo URL}
           reference: ${POLL_REF:-refs/heads/main}
           interval: ${POLL_INTERVAL:-120}
     volumes:
